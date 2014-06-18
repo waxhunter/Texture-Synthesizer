@@ -1,0 +1,143 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TextureSynthesys
+{
+    public partial class TextureSynthesizer : Form
+    {
+        const int MOUSE_MODE_IDLE = 0;
+        const int MOUSE_MODE_DRAGGING = 1;
+        const int MOUSE_MODE_RESIZING = 2;
+
+        int mouseMode = MOUSE_MODE_IDLE;
+
+        int lastMouse_x = 0;
+        int lastMouse_y = 0;
+
+        Bitmap sourceImage;
+        TextureSelection selection = new TextureSelection();
+
+        public TextureSynthesizer()
+        {
+            InitializeComponent();
+            selection.SetSourceUI(this);
+        }
+
+        private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult chosenFile = openImageDialog.ShowDialog();
+            if (chosenFile == DialogResult.Cancel || chosenFile == DialogResult.Abort)
+            {
+
+            }
+            else
+            {
+                sourceImage = new Bitmap(openImageDialog.FileName);
+                Console.WriteLine(sourceImage.ToString());
+                selection.SetSourceImage(ref sourceImage);
+                UpdateImage();
+            }
+        }
+
+        public void UpdateImage()
+        {
+            TextureSelector.Image = selection.displayedImage;
+        }
+
+        private void TextureSelector_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (mouseMode == MOUSE_MODE_IDLE)
+            {
+                if (MouseIsInsideSelection(e.X, e.Y))
+                {
+                    mouseMode = MOUSE_MODE_DRAGGING;
+                }
+                else if (MouseIsInSelectionBounds(e.X, e.Y))
+                {
+                    mouseMode = MOUSE_MODE_RESIZING;
+                }
+            }
+
+            lastMouse_x = e.X;
+            lastMouse_y = e.Y;
+        }
+
+        public bool MouseIsInSelectionBounds(int mouse_x, int mouse_y)
+        {
+            int selectorCenter_x = TextureSelector.Width / 2;
+            int selectorCenter_y = TextureSelector.Height / 2;
+
+            if ((!MouseIsInsideSelection(mouse_x, mouse_y)) &&
+                (mouse_x > (selectorCenter_x + selection.center_x - (selection.size / 2 + 2))) &&
+                (mouse_x < (selectorCenter_x + selection.center_x + (selection.size / 2 + 2))) &&
+                (mouse_y < (selectorCenter_y + selection.center_y + (selection.size / 2 + 2))) &&
+                (mouse_y > (selectorCenter_y + selection.center_y - (selection.size / 2 + 2))))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool MouseIsInsideSelection(int mouse_x, int mouse_y)
+        {
+            int selectorCenter_x = TextureSelector.Width / 2;
+            int selectorCenter_y = TextureSelector.Height / 2;
+
+            if ((mouse_x > (selectorCenter_x + selection.center_x - (selection.size / 2 - 1))) &&
+                (mouse_x < (selectorCenter_x + selection.center_x + (selection.size / 2 - 1))) &&
+                (mouse_y < (selectorCenter_y + selection.center_y + (selection.size / 2 - 1))) &&
+                (mouse_y > (selectorCenter_y + selection.center_y - (selection.size / 2 - 1))))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private void TextureSelector_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (mouseMode != MOUSE_MODE_IDLE)
+            {
+                if (mouseMode == MOUSE_MODE_DRAGGING)
+                {
+                    selection.MoveCenter(e.X - lastMouse_x, e.Y - lastMouse_y);
+                }
+                else if (mouseMode == MOUSE_MODE_RESIZING)
+                {
+                    //selection.MoveCenter(e.X - lastMouse_x, e.Y - lastMouse_y);
+                    int dist = (int)Math.Round(Math.Sqrt(Math.Pow(lastMouse_x - e.X, 2) + Math.Pow(lastMouse_y - e.Y, 2)));
+                    selection.ChangeSize(selection.size + dist);
+                }
+  
+                mouseMode = MOUSE_MODE_IDLE;
+            }
+        }
+
+        private void TextureSelector_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseMode == MOUSE_MODE_IDLE)
+            {
+                if (MouseIsInsideSelection(e.X, e.Y))
+                {
+                    TextureSelector.Cursor = Cursors.Hand;
+                }
+                else if (MouseIsInSelectionBounds(e.X, e.Y))
+                {
+                    TextureSelector.Cursor = Cursors.SizeNWSE;
+                }
+                else
+                {
+                    TextureSelector.Cursor = Cursors.Default;
+                }
+            }
+        }
+    }
+}

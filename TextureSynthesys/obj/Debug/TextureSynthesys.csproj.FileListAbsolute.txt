@@ -1,0 +1,9 @@
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\bin\Debug\TextureSynthesys.exe.config
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\bin\Debug\TextureSynthesys.exe
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\bin\Debug\TextureSynthesys.pdb
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.csprojResolveAssemblyReference.cache
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.TextureSynthesizer.resources
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.Properties.Resources.resources
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.csproj.GenerateResource.Cache
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.exe
+C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.pdb
