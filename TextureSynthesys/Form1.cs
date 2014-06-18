@@ -18,8 +18,13 @@ namespace TextureSynthesys
 
         int mouseMode = MOUSE_MODE_IDLE;
 
+        int originalSize = 0;
+
         int lastMouse_x = 0;
         int lastMouse_y = 0;
+
+        int originalMouse_x = 0;
+        int originalMouse_y = 0;
 
         Bitmap sourceImage;
         TextureSelection selection = new TextureSelection();
@@ -27,7 +32,6 @@ namespace TextureSynthesys
         public TextureSynthesizer()
         {
             InitializeComponent();
-            selection.SetSourceUI(this);
         }
 
         private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -40,7 +44,8 @@ namespace TextureSynthesys
             else
             {
                 sourceImage = new Bitmap(openImageDialog.FileName);
-                Console.WriteLine(sourceImage.ToString());
+                selection = new TextureSelection();
+                selection.SetSourceUI(this);
                 selection.SetSourceImage(ref sourceImage);
                 UpdateImage();
             }
@@ -62,11 +67,12 @@ namespace TextureSynthesys
                 else if (MouseIsInSelectionBounds(e.X, e.Y))
                 {
                     mouseMode = MOUSE_MODE_RESIZING;
+                    originalSize = selection.size;
                 }
             }
 
-            lastMouse_x = e.X;
-            lastMouse_y = e.Y;
+            originalMouse_x = e.X;
+            originalMouse_y = e.Y;
         }
 
         public bool MouseIsInSelectionBounds(int mouse_x, int mouse_y)
@@ -106,17 +112,6 @@ namespace TextureSynthesys
         {
             if (mouseMode != MOUSE_MODE_IDLE)
             {
-                if (mouseMode == MOUSE_MODE_DRAGGING)
-                {
-                    selection.MoveCenter(e.X - lastMouse_x, e.Y - lastMouse_y);
-                }
-                else if (mouseMode == MOUSE_MODE_RESIZING)
-                {
-                    //selection.MoveCenter(e.X - lastMouse_x, e.Y - lastMouse_y);
-                    int dist = (int)Math.Round(Math.Sqrt(Math.Pow(lastMouse_x - e.X, 2) + Math.Pow(lastMouse_y - e.Y, 2)));
-                    selection.ChangeSize(selection.size + dist);
-                }
-  
                 mouseMode = MOUSE_MODE_IDLE;
             }
         }
@@ -138,6 +133,18 @@ namespace TextureSynthesys
                     TextureSelector.Cursor = Cursors.Default;
                 }
             }
+            else if (mouseMode == MOUSE_MODE_DRAGGING)
+            {
+                selection.MoveCenter(e.X - lastMouse_x, e.Y - lastMouse_y);
+            }
+            else if (mouseMode == MOUSE_MODE_RESIZING)
+            {
+                int dist = (int)Math.Round(Math.Sqrt(Math.Pow(originalMouse_x - e.X, 2) + Math.Pow(originalMouse_y - e.Y, 2)));
+                selection.ChangeSize(originalSize + dist);
+            }
+
+            lastMouse_x = e.X;
+            lastMouse_y = e.Y;
         }
     }
 }

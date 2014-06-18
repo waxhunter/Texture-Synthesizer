@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace TextureSynthesys
         Bitmap sourceImage;
         public Bitmap displayedImage;
 
+        Pen selectionPen = new Pen(Color.Red, 1);
+        Graphics selectionGraphics;
+
         public int center_x = 0;
         public int center_y = 0;
 
@@ -30,6 +34,8 @@ namespace TextureSynthesys
         public void SetSourceImage(ref Bitmap img)
         {
             sourceImage = img;
+            displayedImage = new Bitmap(sourceImage);
+            selectionGraphics = Graphics.FromImage(displayedImage);
             UpdateImage();
         }
 
@@ -48,15 +54,10 @@ namespace TextureSynthesys
 
         public void UpdateImage()
         {
-            // Reset displayed image
-            if(displayedImage != null) displayedImage.Dispose();
+            displayedImage.Dispose();
             displayedImage = new Bitmap(sourceImage);
+            selectionGraphics = Graphics.FromImage(displayedImage);
 
-            // Create graphics and pen
-            Pen selectionPen = new Pen(Color.Red, 1);
-            Graphics selectionGraphics = Graphics.FromImage(displayedImage);
-
-            // Define image center points
             Point imageCenter = new Point(displayedImage.Width / 2, displayedImage.Height / 2);
             Point squareUpperLeft = new Point((imageCenter.X + center_x - (size/2)), (imageCenter.Y + center_y + (size/2)));
             Point squareLowerLeft = new Point((imageCenter.X + center_x - (size/2)), (imageCenter.Y + center_y - (size/2)));
