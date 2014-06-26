@@ -16,7 +16,14 @@ namespace TextureSynthesys
         const int MOUSE_MODE_DRAGGING = 1;
         const int MOUSE_MODE_RESIZING = 2;
 
+        public const int TEX_NOMODE = 0;
+        public const int TEX_MODE_N0 = 1;
+        public const int TEX_MODE_N1 = 2;
+        public const int TEX_MODE_N2 = 3;
+
         int mouseMode = MOUSE_MODE_IDLE;
+
+        public int textureMode = TEX_NOMODE;
 
         int originalSize = 0;
 
@@ -43,6 +50,7 @@ namespace TextureSynthesys
             }
             else
             {
+                EnableControls();
                 sourceImage = new Bitmap(openImageDialog.FileName);
                 selection = new TextureSelection();
                 selection.SetSourceUI(this);
@@ -145,6 +153,32 @@ namespace TextureSynthesys
 
             lastMouse_x = e.X;
             lastMouse_y = e.Y;
+        }
+
+        private void EnableControls()
+        {
+            modeN1Button.Enabled = true;
+            modeN2Button.Enabled = true;
+            modeN3Button.Enabled = true;
+            label1.Enabled = true;
+        }
+
+        private void modeN1Button_CheckedChanged(object sender, EventArgs e)
+        {
+            textureMode = TEX_MODE_N0;
+            selection.UpdateImage();
+        }
+
+        private void modeN2Button_CheckedChanged(object sender, EventArgs e)
+        {
+            textureMode = TEX_MODE_N1;
+            selection.UpdateImage();
+        }
+
+        private void modeN3Button_CheckedChanged(object sender, EventArgs e)
+        {
+            textureMode = TEX_MODE_N2;
+            selection.UpdateImage();
         }
     }
 }

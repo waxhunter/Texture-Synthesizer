@@ -35,11 +35,11 @@
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.modeN1Button = new System.Windows.Forms.RadioButton();
+            this.modeN2Button = new System.Windows.Forms.RadioButton();
+            this.modeN3Button = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.TextureSelector)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // TextureSelector
@@ -93,32 +93,51 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(13, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Mode";
+            this.label1.Text = "Mode:";
             // 
-            // label2
+            // modeN1Button
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "n  =";
+            this.modeN1Button.AutoSize = true;
+            this.modeN1Button.Enabled = false;
+            this.modeN1Button.Location = new System.Drawing.Point(56, 26);
+            this.modeN1Button.Name = "modeN1Button";
+            this.modeN1Button.Size = new System.Drawing.Size(56, 17);
+            this.modeN1Button.TabIndex = 5;
+            this.modeN1Button.TabStop = true;
+            this.modeN1Button.Text = "n = 0";
+            this.modeN1Button.UseVisualStyleBackColor = true;
+            this.modeN1Button.CheckedChanged += new System.EventHandler(this.modeN1Button_CheckedChanged);
             // 
-            // numericUpDown1
+            // modeN2Button
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(79, 26);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(32, 21);
-            this.numericUpDown1.TabIndex = 4;
+            this.modeN2Button.AutoSize = true;
+            this.modeN2Button.Enabled = false;
+            this.modeN2Button.Location = new System.Drawing.Point(118, 26);
+            this.modeN2Button.Name = "modeN2Button";
+            this.modeN2Button.Size = new System.Drawing.Size(56, 17);
+            this.modeN2Button.TabIndex = 6;
+            this.modeN2Button.TabStop = true;
+            this.modeN2Button.Text = "n = 1";
+            this.modeN2Button.UseVisualStyleBackColor = true;
+            this.modeN2Button.CheckedChanged += new System.EventHandler(this.modeN2Button_CheckedChanged);
+            // 
+            // modeN3Button
+            // 
+            this.modeN3Button.AutoSize = true;
+            this.modeN3Button.Enabled = false;
+            this.modeN3Button.Location = new System.Drawing.Point(180, 26);
+            this.modeN3Button.Name = "modeN3Button";
+            this.modeN3Button.Size = new System.Drawing.Size(56, 17);
+            this.modeN3Button.TabIndex = 7;
+            this.modeN3Button.TabStop = true;
+            this.modeN3Button.Text = "n = 2";
+            this.modeN3Button.UseVisualStyleBackColor = true;
+            this.modeN3Button.CheckedChanged += new System.EventHandler(this.modeN3Button_CheckedChanged);
             // 
             // TextureSynthesizer
             // 
@@ -128,8 +147,9 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(798, 573);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.modeN3Button);
+            this.Controls.Add(this.modeN2Button);
+            this.Controls.Add(this.modeN1Button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.TextureSelector);
@@ -139,7 +159,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.TextureSelector)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,8 +172,9 @@
         private System.Windows.Forms.ToolStripMenuItem openImageToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openImageDialog;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.RadioButton modeN1Button;
+        private System.Windows.Forms.RadioButton modeN2Button;
+        private System.Windows.Forms.RadioButton modeN3Button;
     }
 }
 

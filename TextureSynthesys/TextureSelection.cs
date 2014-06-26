@@ -13,7 +13,7 @@ namespace TextureSynthesys
 {
     class TextureSelection
     {
-        TextureSynthesizer UI;
+        TextureSynthesizer userInterface;
 
         Bitmap sourceImage;
         public Bitmap displayedImage;
@@ -28,7 +28,7 @@ namespace TextureSynthesys
 
         public void SetSourceUI(TextureSynthesizer sourceUI)
         {
-            UI = sourceUI;
+            userInterface = sourceUI;
         }
 
         public void SetSourceImage(ref Bitmap img)
@@ -58,19 +58,38 @@ namespace TextureSynthesys
             displayedImage = new Bitmap(sourceImage);
             selectionGraphics = Graphics.FromImage(displayedImage);
 
-            Point imageCenter = new Point(displayedImage.Width / 2, displayedImage.Height / 2);
-            Point squareUpperLeft = new Point((imageCenter.X + center_x - (size/2)), (imageCenter.Y + center_y + (size/2)));
-            Point squareLowerLeft = new Point((imageCenter.X + center_x - (size/2)), (imageCenter.Y + center_y - (size/2)));
-            Point squareUpperRight = new Point((imageCenter.X + center_x + (size/2)), (imageCenter.Y + center_y + (size/2)));
-            Point squareLowerRight = new Point((imageCenter.X + center_x + (size/2)), (imageCenter.Y + center_y - (size/2)));
-
-            selectionGraphics.DrawLine(selectionPen, squareUpperLeft, squareUpperRight);
-            selectionGraphics.DrawLine(selectionPen, squareUpperRight, squareLowerRight);
-            selectionGraphics.DrawLine(selectionPen, squareLowerRight, squareLowerLeft);
-            selectionGraphics.DrawLine(selectionPen, squareLowerLeft, squareUpperLeft);
-
-            UI.UpdateImage();
+            DrawSelection();
         }
 
+        void DrawSelection()
+        {
+            if (userInterface.textureMode >= TextureSynthesizer.TEX_MODE_N0)
+            {
+                Point imageCenter = new Point(displayedImage.Width / 2, displayedImage.Height / 2);
+                Point squareUpperLeft = new Point((imageCenter.X + center_x - (size / 2)), (imageCenter.Y + center_y + (size / 2)));
+                Point squareLowerLeft = new Point((imageCenter.X + center_x - (size / 2)), (imageCenter.Y + center_y - (size / 2)));
+                Point squareUpperRight = new Point((imageCenter.X + center_x + (size / 2)), (imageCenter.Y + center_y + (size / 2)));
+                Point squareLowerRight = new Point((imageCenter.X + center_x + (size / 2)), (imageCenter.Y + center_y - (size / 2)));
+
+                selectionGraphics.DrawLine(selectionPen, squareUpperLeft, squareUpperRight);
+                selectionGraphics.DrawLine(selectionPen, squareUpperRight, squareLowerRight);
+                selectionGraphics.DrawLine(selectionPen, squareLowerRight, squareLowerLeft);
+                selectionGraphics.DrawLine(selectionPen, squareLowerLeft, squareUpperLeft);
+            }
+            if (userInterface.textureMode >= TextureSynthesizer.TEX_MODE_N1)
+            {
+                Point imageCenter = new Point(displayedImage.Width / 2, displayedImage.Height / 2);
+                Point squareUpperCenter = new Point((imageCenter.X + center_x), (imageCenter.Y + center_y + (size / 2)));
+                Point squareLowerCenter = new Point((imageCenter.X + center_x), (imageCenter.Y + center_y - (size / 2)));
+                Point squareLeftCenter = new Point((imageCenter.X + center_x - (size / 2)), (imageCenter.Y + center_y));
+                Point squareRightCenter = new Point((imageCenter.X + center_x + (size / 2)), (imageCenter.Y + center_y));
+
+                selectionGraphics.DrawLine(selectionPen, squareUpperCenter, squareLowerCenter);
+                selectionGraphics.DrawLine(selectionPen, squareLeftCenter, squareRightCenter);
+            }
+
+
+            userInterface.UpdateImage();
+        }
     }
 }
