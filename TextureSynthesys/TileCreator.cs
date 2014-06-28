@@ -20,6 +20,181 @@ namespace TextureSynthesys
             EDGE_RIGHT
         };
 
+        //Cria uma matriz de 16x16 boundary tiles de acordo com o método n = 2.
+        Bitmap[,,] createBoundaryTileN2(int boxSize, Bitmap source, int mode = 2)
+        {
+            // Recupera as 4 tiles do source.
+            Bitmap[] bOriginalTiles = new Bitmap[4];
+            bOriginalTiles[0] = new Bitmap(boxSize / 2, boxSize / 2);
+            bOriginalTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+            bOriginalTiles[2] = new Bitmap(boxSize / 2, boxSize / 2);
+            bOriginalTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+
+            //Inicializa os pixels de cada tile.
+            for (int i = 0; i < boxSize / 2; i++)
+            {
+                for (int j = 0; j < boxSize / 2; j++)
+                {
+                    Color pixel0 = source.GetPixel(i, j); //Na outra é (j, i), mas deveria ser assim, verificar se der bug.
+                    Color pixel1 = source.GetPixel(boxSize / 2 + i, j);
+                    Color pixel3 = source.GetPixel(i, boxSize / 2 + j);
+
+                    // Guarda imagens com lado compatível virado para baixo.
+                    bOriginalTiles[0].SetPixel(i, j, pixel0);
+                    bOriginalTiles[1].SetPixel(boxSize / 2 - i, boxSize / 2 - j, pixel1);
+                    bOriginalTiles[2].SetPixel(j, boxSize / 2 - i, pixel0);
+                    bOriginalTiles[3].SetPixel(boxSize / 2 - j, i, pixel3);
+                }
+            }
+
+            // Cria a matriz de 16x16 tiles conjuntos.
+            Bitmap[,,] tilesMatrix = new Bitmap[16, 16, 4];
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    //Encontra a ordem das tiles neste conjunto.
+                    int[] boundaryArray = new int[4];
+                    boundaryArray[0] = i / 4;
+                    boundaryArray[1] = i % 4;
+                    boundaryArray[2] = j / 4;
+                    boundaryArray[3] = j % 4;
+
+                    // Array de 4 boundary tiles na posicão correta.
+                    Bitmap[] rotatedTiles = new Bitmap[4];
+
+                    //Boundary Tile 0 não é rotacionada...
+                    rotatedTiles[0] = (Bitmap) bOriginalTiles[boundaryArray[0]].Clone();
+
+                    //Boundary Tile 1 é rotacionada em 90º...
+                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
+                            rotatedTiles[1].SetPixel(boxSize / 2 - m, l, pixel);
+                        }
+                    }
+
+                    //Boundary Tile 2 é rotacionado em 180º...
+                    rotatedTiles[2] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
+                            rotatedTiles[2].SetPixel(boxSize / 2 - l, boxSize / 2 - m, pixel);
+                        }
+                    }
+
+                    //Boundary Tile 3 é rotacionada em -90º...
+                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
+                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l, pixel);
+                        }
+                    }
+
+                    // Salva na matriz...
+                    tilesMatrix[i, j, 0] = rotatedTiles[0];
+                    tilesMatrix[i, j, 1] = rotatedTiles[1];
+                    tilesMatrix[i, j, 2] = rotatedTiles[2];
+                    tilesMatrix[i, j, 3] = rotatedTiles[3];
+                }
+            }
+
+            return tilesMatrix;
+        }
+
+        //Cria as boundary tiles do método n = 1.
+        Bitmap[,,] createBoundaryTileN1(int boxSize, Bitmap source, int mode = 1)
+        {
+            // Recupera as 2 tiles do source.
+            Bitmap[] bOriginalTiles = new Bitmap[2];
+            bOriginalTiles[0] = new Bitmap(boxSize / 2, boxSize / 2);
+            bOriginalTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+
+            //Inicializa os pixels de cada tile.
+            for (int i = 0; i < boxSize / 2; i++)
+            {
+                for (int j = 0; j < boxSize / 2; j++)
+                {
+                    Color pixel0 = source.GetPixel(i, j); //Na outra é (j, i), mas deveria ser assim, verificar se der bug.
+                    Color pixel1 = source.GetPixel(boxSize / 2 + i, j);
+
+                    // Guarda imagens com lado compatível virado para baixo.
+                    bOriginalTiles[0].SetPixel(i, j, pixel0);
+                    bOriginalTiles[1].SetPixel(boxSize / 2 - i, boxSize / 2 - j, pixel1);
+                }
+            }
+
+            // Cria a matriz de 4x4 tiles conjuntos.
+            Bitmap[, ,] tilesMatrix = new Bitmap[4, 4, 4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    //Encontra a ordem das tiles neste conjunto.
+                    int[] boundaryArray = new int[4];
+                    boundaryArray[0] = i / 2;
+                    boundaryArray[1] = i % 2;
+                    boundaryArray[2] = j / 2;
+                    boundaryArray[3] = j % 2;
+
+                    // Array de 4 boundary tiles na posicão correta.
+                    Bitmap[] rotatedTiles = new Bitmap[4];
+
+                    //Boundary Tile 0 não é rotacionada...
+                    rotatedTiles[0] = (Bitmap)bOriginalTiles[boundaryArray[0]].Clone();
+
+                    //Boundary Tile 1 é rotacionada em 90º...
+                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
+                            rotatedTiles[1].SetPixel(boxSize / 2 - m, l, pixel);
+                        }
+                    }
+
+                    //Boundary Tile 2 é rotacionado em 180º...
+                    rotatedTiles[2] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
+                            rotatedTiles[2].SetPixel(boxSize / 2 - l, boxSize / 2 - m, pixel);
+                        }
+                    }
+
+                    //Boundary Tile 3 é rotacionada em -90º...
+                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
+                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l, pixel);
+                        }
+                    }
+
+                    // Salva na matriz...
+                    tilesMatrix[i, j, 0] = rotatedTiles[0];
+                    tilesMatrix[i, j, 1] = rotatedTiles[1];
+                    tilesMatrix[i, j, 2] = rotatedTiles[2];
+                    tilesMatrix[i, j, 3] = rotatedTiles[3];
+                }
+            }
+
+            return tilesMatrix;
+        }
+
         // MODO: N = 0
         // Implementação para criar bordas no modo n = 0
 

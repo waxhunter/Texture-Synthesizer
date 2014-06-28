@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextureSynthesizer));
-            this.TextureSelector = new System.Windows.Forms.PictureBox();
+            this.sourcePictureBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,28 +38,26 @@
             this.modeN1Button = new System.Windows.Forms.RadioButton();
             this.modeN2Button = new System.Windows.Forms.RadioButton();
             this.modeN3Button = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.TextureSelector)).BeginInit();
+            this.selectionPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // TextureSelector
+            // sourcePictureBox
             // 
-            this.TextureSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.sourcePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextureSelector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TextureSelector.BackgroundImage")));
-            this.TextureSelector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextureSelector.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TextureSelector.Location = new System.Drawing.Point(12, 53);
-            this.TextureSelector.Name = "TextureSelector";
-            this.TextureSelector.Padding = new System.Windows.Forms.Padding(10);
-            this.TextureSelector.Size = new System.Drawing.Size(774, 508);
-            this.TextureSelector.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.TextureSelector.TabIndex = 0;
-            this.TextureSelector.TabStop = false;
-            this.TextureSelector.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextureSelector_MouseDown);
-            this.TextureSelector.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextureSelector_MouseMove);
-            this.TextureSelector.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TextureSelector_MouseUp);
+            this.sourcePictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sourcePictureBox.BackgroundImage")));
+            this.sourcePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sourcePictureBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.sourcePictureBox.Location = new System.Drawing.Point(12, 53);
+            this.sourcePictureBox.Name = "sourcePictureBox";
+            this.sourcePictureBox.Padding = new System.Windows.Forms.Padding(10);
+            this.sourcePictureBox.Size = new System.Drawing.Size(774, 508);
+            this.sourcePictureBox.TabIndex = 0;
+            this.sourcePictureBox.TabStop = false;
             // 
             // menuStrip1
             // 
@@ -139,26 +137,47 @@
             this.modeN3Button.UseVisualStyleBackColor = true;
             this.modeN3Button.CheckedChanged += new System.EventHandler(this.modeN3Button_CheckedChanged);
             // 
+            // selectionPictureBox
+            // 
+            this.selectionPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectionPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.selectionPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.selectionPictureBox.ErrorImage = null;
+            this.selectionPictureBox.InitialImage = null;
+            this.selectionPictureBox.Location = new System.Drawing.Point(12, 53);
+            this.selectionPictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.selectionPictureBox.Name = "selectionPictureBox";
+            this.selectionPictureBox.Size = new System.Drawing.Size(774, 508);
+            this.selectionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.selectionPictureBox.TabIndex = 8;
+            this.selectionPictureBox.TabStop = false;
+            this.selectionPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.selectionPictureBox_MouseDown);
+            this.selectionPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.selectionPictureBox_MouseMove);
+            this.selectionPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.selectionPictureBox_MouseUp);
+            // 
             // TextureSynthesizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(798, 573);
+            this.Controls.Add(this.selectionPictureBox);
             this.Controls.Add(this.modeN3Button);
             this.Controls.Add(this.modeN2Button);
             this.Controls.Add(this.modeN1Button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.TextureSelector);
+            this.Controls.Add(this.sourcePictureBox);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TextureSynthesizer";
             this.Text = "Texture Synthesizer";
-            ((System.ComponentModel.ISupportInitialize)(this.TextureSelector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,7 +185,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox TextureSelector;
+        private System.Windows.Forms.PictureBox sourcePictureBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openImageToolStripMenuItem;
@@ -175,6 +194,7 @@
         private System.Windows.Forms.RadioButton modeN1Button;
         private System.Windows.Forms.RadioButton modeN2Button;
         private System.Windows.Forms.RadioButton modeN3Button;
+        private System.Windows.Forms.PictureBox selectionPictureBox;
     }
 }
 
