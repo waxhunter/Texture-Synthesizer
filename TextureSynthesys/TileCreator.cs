@@ -199,7 +199,7 @@ namespace TextureSynthesys
         // Implementação para criar bordas no modo n = 0
 
         // A imagem de entrada source deve ser uma imagem quadrada.
-        Bitmap createBoundaryTile(int boxSize, Bitmap source, int mode = 0)
+        Bitmap createBoundaryTileN0(int boxSize, Bitmap source, int mode = 0)
         {
             // Aloca imagem quadrada em memória, representando o
             // boundary tile a ser gerado.
