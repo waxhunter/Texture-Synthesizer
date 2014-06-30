@@ -370,7 +370,7 @@ namespace TextureSynthesys
                         }
                     }
 
-                    sourcePictureBox.Image = outputTexture;
+                    sourceImage = new Bitmap(outputTexture);
 
                 }
                 if (textureMode == textureModes.MODE_N1)
@@ -411,7 +411,7 @@ namespace TextureSynthesys
                         }
                     }
 
-                    sourcePictureBox.Image = outputTexture;
+                    sourceImage = new Bitmap(outputTexture);
                 }
                 if (textureMode == textureModes.MODE_N2)
                 {
@@ -450,14 +450,27 @@ namespace TextureSynthesys
                             }
                         }
                     }
-
                     sourceImage = new Bitmap(outputTexture);
-                    sourcePictureBox.Image = sourceImage;
-                    
                 }
 
+                sourcePictureBox.Image = sourceImage;
                 textureMode = textureModes.DEFAULT;
                 RecreateSelection();
+                RemakeSelections();
+                blueOverlay.ChangeSize(sourceImage.Width, sourceImage.Height);
+            }
+        }
+
+        private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult chosenFile = saveOutputDialog.ShowDialog();
+            if (chosenFile == DialogResult.Cancel || chosenFile == DialogResult.Abort)
+            {
+
+            }
+            else
+            {
+                sourceImage.Save(saveOutputDialog.FileName);
             }
         }
     }
