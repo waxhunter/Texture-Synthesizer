@@ -33,6 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.modeLabel = new System.Windows.Forms.Label();
             this.modeN1Button = new System.Windows.Forms.RadioButton();
@@ -53,7 +54,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.saveImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).BeginInit();
@@ -101,9 +101,16 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openImageToolStripMenuItem.Text = "Open image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
+            // 
+            // saveImageToolStripMenuItem
+            // 
+            this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImageToolStripMenuItem.Text = "Save image";
+            this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // openImageDialog
             // 
@@ -281,11 +288,6 @@
             this.colThreshold.Name = "colThreshold";
             this.colThreshold.Size = new System.Drawing.Size(43, 21);
             this.colThreshold.TabIndex = 15;
-            this.colThreshold.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
             // 
             // angularThresholdStart
             // 
@@ -359,13 +361,6 @@
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 21;
             this.label4.Text = "Col. Thrsh.";
-            // 
-            // saveImageToolStripMenuItem
-            // 
-            this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveImageToolStripMenuItem.Text = "Save image";
-            this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // TextureSynthesizer
             // 

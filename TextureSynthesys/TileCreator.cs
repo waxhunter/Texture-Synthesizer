@@ -312,21 +312,25 @@ namespace TextureSynthesys
                             }
                     }
 
-                    Color source = sourceTile.GetPixel(horiz, vert);
-                    Color boundary = boundaryTile.GetPixel(horiz, vert);
+                    Color source = sourceTile.GetPixel(x, y);
+                    Color boundary = boundaryTile.GetPixel(x, y);
 
-                    float influence = straightLineValue(edge, boxSize, x, y, lin_a, lin_b);
+                    float influence;
+
+                    influence = straightLineValue(edge, boxSize, x, y, lin_a, lin_b);
                     influence *= leftDiagonalValue(edge, boxSize, x, y, ang_a, ang_b);
                     influence *= rightDiagonalValue(edge, boxSize, x, y, ang_a, ang_b);
 
-                    if (thresholdLineValue(colorThreshold, source, boundary) == 0f || zeroedColumn == true)
+                    /*if (colorThreshold > 0)
                     {
-                        influence = 0f;
-                        zeroedColumn = true;
-                    }
+                        if (thresholdLineValue(colorThreshold, source, boundary) == 0f || zeroedColumn == true)
+                        {
+                            influence = 0f;
+                            zeroedColumn = true;
+                        }
+                    }*/
 
-                    //if (influence < 0.7f)
-                        //Console.WriteLine("influence is minor");
+                    
 
                     int finalRed = (int)(influence * (float)boundary.R + (1f - influence) * (float)source.R);
                     int finalGreen = (int)(influence * (float)boundary.G + (1f - influence) * (float)source.G);
@@ -354,12 +358,12 @@ namespace TextureSynthesys
             {
                 case edges.EDGE_BOTTOM:
                     {
-                        coordinate = boxSize - pos_y;
+                        coordinate = boxSize - pos_y - 1;
                         break;
                     }
                 case edges.EDGE_RIGHT:
                     {
-                        coordinate = boxSize - pos_x;
+                        coordinate = boxSize - pos_x - 1;
                         break;
                     }
                 case edges.EDGE_TOP:
