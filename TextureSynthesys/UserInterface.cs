@@ -78,6 +78,7 @@ namespace TextureSynthesys
             selectionPictureBox.Image = selectionImage;
 
             tileSizeBox.Text = "16";
+            tileSize = 16;
         }
 
         private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +94,8 @@ namespace TextureSynthesys
                 sourceImage = new Bitmap(openImageDialog.FileName);
                 blueOverlay.ChangeSize(sourceImage.Width, sourceImage.Height);
                 sourcePictureBox.Image = sourceImage;
+                RemakeSelections();
+                RedrawSelection();
             }
         }
 
@@ -309,6 +312,14 @@ namespace TextureSynthesys
 
         private void button1_Click(object sender, EventArgs e)
         {
+            float lin_a = (float)linearThresholdStart.Value / 100f;
+            float lin_b = (float)linearThresholdEnd.Value / 100f;
+
+            float ang_a = (float)angularThresholdStart.Value / 90f;
+            float ang_b = (float)angularThresholdEnd.Value / 90f;
+
+            int colorThreshold = (int) colThreshold.Value;
+
             if (textureMode >= textureModes.MODE_N0)
             {
                 Bitmap backgroundClip = new Bitmap(blueOverlay.size_x, blueOverlay.size_y);
@@ -343,10 +354,10 @@ namespace TextureSynthesys
                         for (int j = 0; j < 4; j++)
                         {
                             Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTile, outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTile, outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTile, outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTile, outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
 
                             for (int x = 0; x < outputTile.Width; x++)
                             {
@@ -384,10 +395,10 @@ namespace TextureSynthesys
                         for (int j = 0; j < 4; j++)
                         {
                             Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i,j,0], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i,j,1], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i,j,2], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i,j,3], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i, j, 0], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i, j, 1], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i, j, 2], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i, j, 3], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
 
                             for (int x = 0; x < outputTile.Width; x++)
                             {
@@ -424,10 +435,10 @@ namespace TextureSynthesys
                         for (int j = 0; j < 16; j++)
                         {
                             Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i, j, 0], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i, j, 1], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i, j, 2], outputTile, 0.2f, 0.4f, 32);
-                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i, j, 3], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i, j, 0], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i, j, 1], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i, j, 2], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i, j, 3], outputTile, lin_a, lin_b, ang_a, ang_b, colorThreshold);
 
                             for (int x = 0; x < outputTile.Width; x++)
                             {
@@ -440,8 +451,13 @@ namespace TextureSynthesys
                         }
                     }
 
-                    sourcePictureBox.Image = outputTexture;
+                    sourceImage = new Bitmap(outputTexture);
+                    sourcePictureBox.Image = sourceImage;
+                    
                 }
+
+                textureMode = textureModes.DEFAULT;
+                RecreateSelection();
             }
         }
     }

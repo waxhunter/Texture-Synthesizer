@@ -43,9 +43,24 @@
             this.tileSizeLabel = new System.Windows.Forms.Label();
             this.generateButton = new System.Windows.Forms.Button();
             this.saveOutputDialog = new System.Windows.Forms.SaveFileDialog();
+            this.linearThresholdStart = new System.Windows.Forms.NumericUpDown();
+            this.linearThresholdEnd = new System.Windows.Forms.NumericUpDown();
+            this.angularThresholdEnd = new System.Windows.Forms.NumericUpDown();
+            this.colThreshold = new System.Windows.Forms.NumericUpDown();
+            this.angularThresholdStart = new System.Windows.Forms.NumericUpDown();
+            this.linTHSTLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linearThresholdStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linearThresholdEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.angularThresholdEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.angularThresholdStart)).BeginInit();
             this.SuspendLayout();
             // 
             // sourcePictureBox
@@ -59,7 +74,7 @@
             this.sourcePictureBox.Location = new System.Drawing.Point(12, 53);
             this.sourcePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.sourcePictureBox.Name = "sourcePictureBox";
-            this.sourcePictureBox.Size = new System.Drawing.Size(1176, 756);
+            this.sourcePictureBox.Size = new System.Drawing.Size(1260, 756);
             this.sourcePictureBox.TabIndex = 0;
             this.sourcePictureBox.TabStop = false;
             // 
@@ -69,7 +84,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1200, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -154,7 +169,7 @@
             this.selectionPictureBox.Location = new System.Drawing.Point(12, 53);
             this.selectionPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.selectionPictureBox.Name = "selectionPictureBox";
-            this.selectionPictureBox.Size = new System.Drawing.Size(1176, 756);
+            this.selectionPictureBox.Size = new System.Drawing.Size(1260, 756);
             this.selectionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selectionPictureBox.TabIndex = 8;
             this.selectionPictureBox.TabStop = false;
@@ -175,7 +190,7 @@
             "64",
             "128",
             "256"});
-            this.tileSizeBox.Location = new System.Drawing.Point(1140, 26);
+            this.tileSizeBox.Location = new System.Drawing.Point(314, 25);
             this.tileSizeBox.Name = "tileSizeBox";
             this.tileSizeBox.Size = new System.Drawing.Size(48, 21);
             this.tileSizeBox.TabIndex = 9;
@@ -187,7 +202,7 @@
             this.tileSizeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tileSizeLabel.AutoSize = true;
             this.tileSizeLabel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tileSizeLabel.Location = new System.Drawing.Point(1068, 30);
+            this.tileSizeLabel.Location = new System.Drawing.Point(242, 28);
             this.tileSizeLabel.Name = "tileSizeLabel";
             this.tileSizeLabel.Size = new System.Drawing.Size(66, 13);
             this.tileSizeLabel.TabIndex = 10;
@@ -196,7 +211,7 @@
             // generateButton
             // 
             this.generateButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.generateButton.Location = new System.Drawing.Point(548, 23);
+            this.generateButton.Location = new System.Drawing.Point(1197, 23);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(75, 23);
             this.generateButton.TabIndex = 11;
@@ -204,13 +219,158 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // linearThresholdStart
+            // 
+            this.linearThresholdStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linearThresholdStart.Location = new System.Drawing.Point(496, 26);
+            this.linearThresholdStart.Name = "linearThresholdStart";
+            this.linearThresholdStart.Size = new System.Drawing.Size(46, 21);
+            this.linearThresholdStart.TabIndex = 12;
+            this.linearThresholdStart.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            131072});
+            // 
+            // linearThresholdEnd
+            // 
+            this.linearThresholdEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linearThresholdEnd.Location = new System.Drawing.Point(671, 25);
+            this.linearThresholdEnd.Name = "linearThresholdEnd";
+            this.linearThresholdEnd.Size = new System.Drawing.Size(46, 21);
+            this.linearThresholdEnd.TabIndex = 13;
+            this.linearThresholdEnd.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // angularThresholdEnd
+            // 
+            this.angularThresholdEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.angularThresholdEnd.Location = new System.Drawing.Point(1151, 25);
+            this.angularThresholdEnd.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.angularThresholdEnd.Name = "angularThresholdEnd";
+            this.angularThresholdEnd.Size = new System.Drawing.Size(37, 21);
+            this.angularThresholdEnd.TabIndex = 14;
+            this.angularThresholdEnd.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // colThreshold
+            // 
+            this.colThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.colThreshold.Location = new System.Drawing.Point(812, 25);
+            this.colThreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.colThreshold.Name = "colThreshold";
+            this.colThreshold.Size = new System.Drawing.Size(43, 21);
+            this.colThreshold.TabIndex = 15;
+            this.colThreshold.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // angularThresholdStart
+            // 
+            this.angularThresholdStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.angularThresholdStart.Location = new System.Drawing.Point(983, 26);
+            this.angularThresholdStart.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.angularThresholdStart.Name = "angularThresholdStart";
+            this.angularThresholdStart.Size = new System.Drawing.Size(40, 21);
+            this.angularThresholdStart.TabIndex = 16;
+            this.angularThresholdStart.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // linTHSTLabel
+            // 
+            this.linTHSTLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linTHSTLabel.AutoSize = true;
+            this.linTHSTLabel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linTHSTLabel.Location = new System.Drawing.Point(373, 28);
+            this.linTHSTLabel.Name = "linTHSTLabel";
+            this.linTHSTLabel.Size = new System.Drawing.Size(117, 13);
+            this.linTHSTLabel.TabIndex = 17;
+            this.linTHSTLabel.Text = "Lin. Thrsh. % (a)";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(548, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Lin. Thrsh. % (b)";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(861, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Ang. Thrsh. º (a)";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1029, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Ang. Thrsh. º (b)";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(730, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Col. Thrsh.";
+            // 
             // TextureSynthesizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1200, 821);
+            this.ClientSize = new System.Drawing.Size(1284, 821);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.linTHSTLabel);
+            this.Controls.Add(this.angularThresholdStart);
+            this.Controls.Add(this.colThreshold);
+            this.Controls.Add(this.angularThresholdEnd);
+            this.Controls.Add(this.linearThresholdEnd);
+            this.Controls.Add(this.linearThresholdStart);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.tileSizeLabel);
             this.Controls.Add(this.tileSizeBox);
@@ -228,6 +388,11 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linearThresholdStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linearThresholdEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.angularThresholdEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.angularThresholdStart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +414,16 @@
         private System.Windows.Forms.Label tileSizeLabel;
         private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.SaveFileDialog saveOutputDialog;
+        private System.Windows.Forms.NumericUpDown linearThresholdStart;
+        private System.Windows.Forms.NumericUpDown linearThresholdEnd;
+        private System.Windows.Forms.NumericUpDown angularThresholdEnd;
+        private System.Windows.Forms.NumericUpDown colThreshold;
+        private System.Windows.Forms.NumericUpDown angularThresholdStart;
+        private System.Windows.Forms.Label linTHSTLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

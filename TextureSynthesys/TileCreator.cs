@@ -272,21 +272,58 @@ namespace TextureSynthesys
             return rTile;
         }
 
-        public static Bitmap interiorBlend(edges edge, int boxSize, Bitmap boundaryTile, Bitmap sourceTile, float a, float b, int colorThreshold)
+        public static Bitmap interiorBlend(edges edge, int boxSize, Bitmap boundaryTile, Bitmap sourceTile, float lin_a, float lin_b, float ang_a, float ang_b, int colorThreshold)
         {
             Bitmap fTile = new Bitmap(boxSize, boxSize);
 
             for (int x = 0; x < sourceTile.Width; x++)
             {
+                bool zeroedColumn = false;
                 for (int y = 0; y < sourceTile.Height; y++)
                 {
-                    Color source = sourceTile.GetPixel(x, y);
-                    Color boundary = boundaryTile.GetPixel(x, y);
+                    int vert = 0;
+                    int horiz = 0;
 
-                    float influence = straightLineValue(edge, boxSize, x, y, a, b);
-                    //influence *= thresholdLineValue(colorThreshold, source, boundary);
-                    influence *= leftDiagonalValue(edge, boxSize, x, y, a, b);
-                    influence *= rightDiagonalValue(edge, boxSize, x, y, a, b);
+                    switch (edge)
+                    {
+                        case edges.EDGE_BOTTOM:
+                            {
+                                vert = boxSize - y - 1;
+                                horiz = x;
+                                break;
+                            }
+                        case edges.EDGE_RIGHT:
+                            {
+                                vert = boxSize - x - 1;
+                                horiz = boxSize - y - 1;
+                                break;
+                            }
+                        case edges.EDGE_TOP:
+                            {
+                                vert = y;
+                                horiz = boxSize - x - 1;
+                                break;
+                            }
+                        case edges.EDGE_LEFT:
+                            {
+                                vert = x;
+                                horiz = y;
+                                break;
+                            }
+                    }
+
+                    Color source = sourceTile.GetPixel(horiz, vert);
+                    Color boundary = boundaryTile.GetPixel(horiz, vert);
+
+                    float influence = straightLineValue(edge, boxSize, x, y, lin_a, lin_b);
+                    influence *= leftDiagonalValue(edge, boxSize, x, y, ang_a, ang_b);
+                    influence *= rightDiagonalValue(edge, boxSize, x, y, ang_a, ang_b);
+
+                    if (thresholdLineValue(colorThreshold, source, boundary) == 0f || zeroedColumn == true)
+                    {
+                        influence = 0f;
+                        zeroedColumn = true;
+                    }
 
                     //if (influence < 0.7f)
                         //Console.WriteLine("influence is minor");
