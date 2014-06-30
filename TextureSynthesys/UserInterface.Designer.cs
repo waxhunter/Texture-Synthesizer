@@ -41,7 +41,8 @@
             this.selectionPictureBox = new System.Windows.Forms.PictureBox();
             this.tileSizeBox = new System.Windows.Forms.ComboBox();
             this.tileSizeLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.generateButton = new System.Windows.Forms.Button();
+            this.saveOutputDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectionPictureBox)).BeginInit();
@@ -58,7 +59,7 @@
             this.sourcePictureBox.Location = new System.Drawing.Point(12, 53);
             this.sourcePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.sourcePictureBox.Name = "sourcePictureBox";
-            this.sourcePictureBox.Size = new System.Drawing.Size(774, 508);
+            this.sourcePictureBox.Size = new System.Drawing.Size(1176, 756);
             this.sourcePictureBox.TabIndex = 0;
             this.sourcePictureBox.TabStop = false;
             // 
@@ -68,7 +69,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(798, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1200, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -153,7 +154,7 @@
             this.selectionPictureBox.Location = new System.Drawing.Point(12, 53);
             this.selectionPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.selectionPictureBox.Name = "selectionPictureBox";
-            this.selectionPictureBox.Size = new System.Drawing.Size(774, 508);
+            this.selectionPictureBox.Size = new System.Drawing.Size(1176, 756);
             this.selectionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selectionPictureBox.TabIndex = 8;
             this.selectionPictureBox.TabStop = false;
@@ -163,6 +164,7 @@
             // 
             // tileSizeBox
             // 
+            this.tileSizeBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tileSizeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tileSizeBox.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tileSizeBox.FormattingEnabled = true;
@@ -173,7 +175,7 @@
             "64",
             "128",
             "256"});
-            this.tileSizeBox.Location = new System.Drawing.Point(738, 26);
+            this.tileSizeBox.Location = new System.Drawing.Point(1140, 26);
             this.tileSizeBox.Name = "tileSizeBox";
             this.tileSizeBox.Size = new System.Drawing.Size(48, 21);
             this.tileSizeBox.TabIndex = 9;
@@ -182,24 +184,25 @@
             // 
             // tileSizeLabel
             // 
+            this.tileSizeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tileSizeLabel.AutoSize = true;
             this.tileSizeLabel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tileSizeLabel.Location = new System.Drawing.Point(666, 30);
+            this.tileSizeLabel.Location = new System.Drawing.Point(1068, 30);
             this.tileSizeLabel.Name = "tileSizeLabel";
             this.tileSizeLabel.Size = new System.Drawing.Size(66, 13);
             this.tileSizeLabel.TabIndex = 10;
             this.tileSizeLabel.Text = "Tile Size:";
             // 
-            // button1
+            // generateButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(348, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Generate";
-            this.button1.UseVisualStyleBackColor = true;
+            this.generateButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.generateButton.Location = new System.Drawing.Point(548, 23);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(75, 23);
+            this.generateButton.TabIndex = 11;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // TextureSynthesizer
             // 
@@ -207,8 +210,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(798, 573);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1200, 821);
+            this.Controls.Add(this.generateButton);
             this.Controls.Add(this.tileSizeLabel);
             this.Controls.Add(this.tileSizeBox);
             this.Controls.Add(this.selectionPictureBox);
@@ -244,7 +247,8 @@
         private System.Windows.Forms.PictureBox selectionPictureBox;
         private System.Windows.Forms.ComboBox tileSizeBox;
         private System.Windows.Forms.Label tileSizeLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.SaveFileDialog saveOutputDialog;
     }
 }
 

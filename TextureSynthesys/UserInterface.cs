@@ -306,5 +306,143 @@ namespace TextureSynthesys
         {
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textureMode >= textureModes.MODE_N0)
+            {
+                Bitmap backgroundClip = new Bitmap(blueOverlay.size_x, blueOverlay.size_y);
+                for (int i = 0; i < blueOverlay.size_x; i++)
+                {
+                    for (int j = 0; j < blueOverlay.size_y; j++)
+                    {
+                        Color pixel = sourceImage.GetPixel(i + blueOverlay.pos_x, j + blueOverlay.pos_y);
+                        backgroundClip.SetPixel(i, j, pixel);
+                    }
+                }
+
+                if (textureMode == textureModes.MODE_N0)
+                {
+                    Bitmap n0Clip = new Bitmap(tileSize, tileSize);
+
+                    for (int i = 0; i < redOverlayTopLeft.size_x; i++)
+                    {
+                        for (int j = 0; j < redOverlayTopLeft.size_y; j++)
+                        {
+                            Color pixel = sourceImage.GetPixel(i + redOverlayTopLeft.pos_x, j + redOverlayTopLeft.pos_y);
+                            n0Clip.SetPixel(i, j, pixel);
+                        }
+                    }
+
+                    Bitmap boundaryTile = TileCreator.createBoundaryTileN0(tileSize, n0Clip);
+
+                    Bitmap outputTexture = new Bitmap(4 * tileSize, 4 * tileSize);
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTile, outputTile, 0.2f, 0.4f, 32);
+
+                            for (int x = 0; x < outputTile.Width; x++)
+                            {
+                                for (int y = 0; y < outputTile.Height; y++)
+                                {
+                                    Color pixel = outputTile.GetPixel(x, y);
+                                    outputTexture.SetPixel(tileSize * i + x, tileSize * j + y, pixel);
+                                }
+                            }
+                        }
+                    }
+
+                    sourcePictureBox.Image = outputTexture;
+
+                }
+                if (textureMode == textureModes.MODE_N1)
+                {
+                    Bitmap n1Clip = new Bitmap(tileSize * 2, tileSize * 2);
+
+                    for (int i = 0; i < redOverlayTopLeft.size_x * 2; i++)
+                    {
+                        for (int j = 0; j < redOverlayTopLeft.size_y * 2; j++)
+                        {
+                            Color pixel = sourceImage.GetPixel(i + redOverlayTopLeft.pos_x, j + redOverlayTopLeft.pos_y);
+                            n1Clip.SetPixel(i, j, pixel);
+                        }
+                    }
+
+                    Bitmap[,,] boundaryTiles = TileCreator.createBoundaryTileN1(tileSize * 2, n1Clip);
+
+                    Bitmap outputTexture = new Bitmap(4 * tileSize, 4 * tileSize);
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i,j,0], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i,j,1], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i,j,2], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i,j,3], outputTile, 0.2f, 0.4f, 32);
+
+                            for (int x = 0; x < outputTile.Width; x++)
+                            {
+                                for (int y = 0; y < outputTile.Height; y++)
+                                {
+                                    Color pixel = outputTile.GetPixel(x, y);
+                                    outputTexture.SetPixel(tileSize * i + x, tileSize * j + y, pixel);
+                                }
+                            }
+                        }
+                    }
+
+                    sourcePictureBox.Image = outputTexture;
+                }
+                if (textureMode == textureModes.MODE_N2)
+                {
+                    Bitmap n2Clip = new Bitmap(tileSize * 2, tileSize * 2);
+
+                    for (int i = 0; i < redOverlayTopLeft.size_x * 2; i++)
+                    {
+                        for (int j = 0; j < redOverlayTopLeft.size_y * 2; j++)
+                        {
+                            Color pixel = sourceImage.GetPixel(i + redOverlayTopLeft.pos_x, j + redOverlayTopLeft.pos_y);
+                            n2Clip.SetPixel(i, j, pixel);
+                        }
+                    }
+
+                    Bitmap[, ,] boundaryTiles = TileCreator.createBoundaryTileN2(tileSize * 2, n2Clip);
+
+                    Bitmap outputTexture = new Bitmap(16 * tileSize, 16 * tileSize);
+
+                    for (int i = 0; i < 16; i++)
+                    {
+                        for (int j = 0; j < 16; j++)
+                        {
+                            Bitmap outputTile = TileCreator.createRandomTile(tileSize, backgroundClip);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_BOTTOM, tileSize, boundaryTiles[i, j, 0], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_RIGHT, tileSize, boundaryTiles[i, j, 1], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_TOP, tileSize, boundaryTiles[i, j, 2], outputTile, 0.2f, 0.4f, 32);
+                            outputTile = TileCreator.interiorBlend(TileCreator.edges.EDGE_LEFT, tileSize, boundaryTiles[i, j, 3], outputTile, 0.2f, 0.4f, 32);
+
+                            for (int x = 0; x < outputTile.Width; x++)
+                            {
+                                for (int y = 0; y < outputTile.Height; y++)
+                                {
+                                    Color pixel = outputTile.GetPixel(x, y);
+                                    outputTexture.SetPixel(tileSize * i + x, tileSize * j + y, pixel);
+                                }
+                            }
+                        }
+                    }
+
+                    sourcePictureBox.Image = outputTexture;
+                }
+            }
+        }
     }
 }

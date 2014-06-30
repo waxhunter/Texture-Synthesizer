@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace TextureSynthesys
 {
-    class TileCreator
+    abstract class TileCreator
     {
         public enum edges {
             EDGE_BOTTOM,
@@ -21,7 +21,7 @@ namespace TextureSynthesys
         };
 
         //Cria uma matriz de 16x16 boundary tiles de acordo com o método n = 2.
-        Bitmap[,,] createBoundaryTileN2(int boxSize, Bitmap source, int mode = 2)
+        public static Bitmap[,,] createBoundaryTileN2(int boxSize, Bitmap source)
         {
             // Recupera as 4 tiles do source.
             Bitmap[] bOriginalTiles = new Bitmap[4];
@@ -41,9 +41,9 @@ namespace TextureSynthesys
 
                     // Guarda imagens com lado compatível virado para baixo.
                     bOriginalTiles[0].SetPixel(i, j, pixel0);
-                    bOriginalTiles[1].SetPixel(boxSize / 2 - i, boxSize / 2 - j, pixel1);
-                    bOriginalTiles[2].SetPixel(j, boxSize / 2 - i, pixel0);
-                    bOriginalTiles[3].SetPixel(boxSize / 2 - j, i, pixel3);
+                    bOriginalTiles[1].SetPixel(boxSize / 2 - i - 1, boxSize / 2 - j - 1, pixel1);
+                    bOriginalTiles[2].SetPixel(j, boxSize / 2 - i - 1, pixel0);
+                    bOriginalTiles[3].SetPixel(boxSize / 2 - j - 1, i, pixel3);
                 }
             }
 
@@ -73,7 +73,7 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
-                            rotatedTiles[1].SetPixel(boxSize / 2 - m, l, pixel);
+                            rotatedTiles[1].SetPixel(boxSize / 2 - m - 1, l, pixel);
                         }
                     }
 
@@ -84,18 +84,18 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
-                            rotatedTiles[2].SetPixel(boxSize / 2 - l, boxSize / 2 - m, pixel);
+                            rotatedTiles[2].SetPixel(boxSize / 2 - l - 1, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
                     //Boundary Tile 3 é rotacionada em -90º...
-                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
                     for (int l = 0; l < boxSize / 2; l++)
                     {
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
-                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l, pixel);
+                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l - 1, pixel);
                         }
                     }
 
@@ -111,7 +111,7 @@ namespace TextureSynthesys
         }
 
         //Cria as boundary tiles do método n = 1.
-        Bitmap[,,] createBoundaryTileN1(int boxSize, Bitmap source, int mode = 1)
+        public static Bitmap[, ,] createBoundaryTileN1(int boxSize, Bitmap source)
         {
             // Recupera as 2 tiles do source.
             Bitmap[] bOriginalTiles = new Bitmap[2];
@@ -128,7 +128,7 @@ namespace TextureSynthesys
 
                     // Guarda imagens com lado compatível virado para baixo.
                     bOriginalTiles[0].SetPixel(i, j, pixel0);
-                    bOriginalTiles[1].SetPixel(boxSize / 2 - i, boxSize / 2 - j, pixel1);
+                    bOriginalTiles[1].SetPixel(boxSize / 2 - i - 1, boxSize / 2 - j - 1, pixel1);
                 }
             }
 
@@ -158,7 +158,7 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
-                            rotatedTiles[1].SetPixel(boxSize / 2 - m, l, pixel);
+                            rotatedTiles[1].SetPixel(boxSize / 2 - m - 1, l, pixel);
                         }
                     }
 
@@ -169,18 +169,18 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
-                            rotatedTiles[2].SetPixel(boxSize / 2 - l, boxSize / 2 - m, pixel);
+                            rotatedTiles[2].SetPixel(boxSize / 2 - l - 1, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
                     //Boundary Tile 3 é rotacionada em -90º...
-                    rotatedTiles[1] = new Bitmap(boxSize / 2, boxSize / 2);
+                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
                     for (int l = 0; l < boxSize / 2; l++)
                     {
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
-                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l, pixel);
+                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l - 1, pixel);
                         }
                     }
 
@@ -199,7 +199,7 @@ namespace TextureSynthesys
         // Implementação para criar bordas no modo n = 0
 
         // A imagem de entrada source deve ser uma imagem quadrada.
-        Bitmap createBoundaryTileN0(int boxSize, Bitmap source, int mode = 0)
+        public static Bitmap createBoundaryTileN0(int boxSize, Bitmap source)
         {
             // Aloca imagem quadrada em memória, representando o
             // boundary tile a ser gerado.
@@ -212,7 +212,7 @@ namespace TextureSynthesys
                 // "j" vai iterar sobre as posições horizontais da região,
                 // sendo limitado pelo valor de "i", pois deve percorrer
                 // a hipotenusa do triângulo.
-                for(int j = 0; j <= boxSize / 2 - i ; j++)
+                for(int j = i; j <= boxSize / 2 ; j++)
                 {
                     // Pega a informação do pixel em dada posição na imagem original
                     Color pixel = source.GetPixel(j, i);
@@ -220,17 +220,17 @@ namespace TextureSynthesys
                     // Posiciona o pixel na posição equivalente do tile
                     bTile.SetPixel(j, i, pixel);
                     // Reflexão horizontal
-                    bTile.SetPixel(boxSize - j, i, pixel);
-                    bTile.SetPixel(j, boxSize - i, pixel);
-                    bTile.SetPixel(boxSize - j, boxSize - i, pixel);
+                    bTile.SetPixel(boxSize - j - 1, i, pixel);
+                    bTile.SetPixel(j, boxSize - i - 1, pixel);
+                    bTile.SetPixel(boxSize - j - 1, boxSize - i - 1, pixel);
 
                     // Inversão dos valores de i e j, para realizar a "rotação",
                     // e completar os espaços faltantes
                     bTile.SetPixel(i, j, pixel);
                     // Reflexão horizontal (valores invertidos)
-                    bTile.SetPixel(boxSize - i, j, pixel);
-                    bTile.SetPixel(i, boxSize - j, pixel);
-                    bTile.SetPixel(boxSize - i, boxSize - j, pixel);
+                    bTile.SetPixel(boxSize - i - 1, j, pixel);
+                    bTile.SetPixel(i, boxSize - j - 1, pixel);
+                    bTile.SetPixel(boxSize - i - 1, boxSize - j - 1, pixel);
                 }
             }
 
@@ -238,7 +238,7 @@ namespace TextureSynthesys
             return bTile;
         }
 
-        Bitmap createRandomTile(int boxSize, Bitmap source)
+        public static Bitmap createRandomTile(int boxSize, Bitmap source)
         {
             // Aloca imagem quadrada de tamanho definido pelo
             // usuário, representando o tile aleatório que
@@ -248,7 +248,11 @@ namespace TextureSynthesys
             // Escolhe uma seção aleatória da imagem source, de tamanho 
             // boxSize x boxSize
             Random rand = new Random();
-            int x = rand.Next(0, source.Width - boxSize);
+            int x = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                x = rand.Next(0, source.Width - boxSize);
+            }
             int y = rand.Next(0, source.Height - boxSize);
 
             // Define os pixels da nova imagem como sendo os pixels da
@@ -268,25 +272,28 @@ namespace TextureSynthesys
             return rTile;
         }
 
-        Bitmap interiorBlend(edges edge, int boxSize, Bitmap bTile, Bitmap sTile, float a, float b, int colorThreshold)
+        public static Bitmap interiorBlend(edges edge, int boxSize, Bitmap boundaryTile, Bitmap sourceTile, float a, float b, int colorThreshold)
         {
             Bitmap fTile = new Bitmap(boxSize, boxSize);
 
-            for (int x = 0; x < sTile.Width; x++)
+            for (int x = 0; x < sourceTile.Width; x++)
             {
-                for (int y = 0; y < sTile.Height; y++)
+                for (int y = 0; y < sourceTile.Height; y++)
                 {
-                    Color source = sTile.GetPixel(x, y);
-                    Color boundary = bTile.GetPixel(x, y);
+                    Color source = sourceTile.GetPixel(x, y);
+                    Color boundary = boundaryTile.GetPixel(x, y);
 
                     float influence = straightLineValue(edge, boxSize, x, y, a, b);
-                    influence *= thresholdLineValue(colorThreshold, source, boundary);
+                    //influence *= thresholdLineValue(colorThreshold, source, boundary);
                     influence *= leftDiagonalValue(edge, boxSize, x, y, a, b);
                     influence *= rightDiagonalValue(edge, boxSize, x, y, a, b);
 
-                    int finalRed = (int)(influence * (float)boundary.R + (1 - influence) * (float)source.R);
-                    int finalGreen = (int)(influence * (float)boundary.G + (1 - influence) * (float)source.G);
-                    int finalBlue = (int)(influence * (float)boundary.B + (1 - influence) * (float)source.B);
+                    //if (influence < 0.7f)
+                        //Console.WriteLine("influence is minor");
+
+                    int finalRed = (int)(influence * (float)boundary.R + (1f - influence) * (float)source.R);
+                    int finalGreen = (int)(influence * (float)boundary.G + (1f - influence) * (float)source.G);
+                    int finalBlue = (int)(influence * (float)boundary.B + (1f - influence) * (float)source.B);
 
                     Color finalColor = Color.FromArgb(finalRed, finalGreen, finalBlue);
                     
@@ -300,7 +307,7 @@ namespace TextureSynthesys
         // Equivalente à função f0 citada na tese. Ela calcula o valor
         // da influência do boundary tile na background de acordo com
         // a distância do pixel da aresta que estamos calculando.
-        float straightLineValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
+        public static float straightLineValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
         {
             // A variável coordinate será usada para generalizar a fórmula
             // de distância da aresta.
@@ -335,12 +342,15 @@ namespace TextureSynthesys
             if (distance < a)
                 return 1f;
             else if (distance >= a && distance <= b)
-                return Math.Abs( (distance - b) / (a - b) );
+                return Math.Abs((distance - b) / (a - b));
             else
+            {
+                //Console.WriteLine("value is zero");
                 return 0f;
+            }
         }
 
-        float thresholdLineValue(int threshold, Color source, Color boundary)
+        public static float thresholdLineValue(int threshold, Color source, Color boundary)
         {
             int difference = Math.Abs((int)source.R - (int)boundary.R) + Math.Abs((int)source.G - (int)boundary.G) + Math.Abs((int)source.B - (int)boundary.B);
 
@@ -350,7 +360,7 @@ namespace TextureSynthesys
                 return 1f;
         }
 
-        float leftDiagonalValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
+        public static float leftDiagonalValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
         {
             int vert = 0;
             int horiz = 0;
@@ -383,19 +393,21 @@ namespace TextureSynthesys
                     }
             }
 
-            float angle = (float) Math.Atan2((double)vert, (double)horiz);
+            float angle = (float) RadianToDegree(Math.Atan2((double)vert, (double)horiz));
 
-            if (angle < a)
+            if (angle < 90f * a)
                 return 1f;
-            else if (angle >= a && angle <= b)
-                return Math.Abs((angle - b) / (a - b));
+            else if (angle >= 90f * a && angle <= 90f * b)
+                return Math.Abs((angle - 90f * b) / (90f * a - 90f * b));
             else
+            {
                 return 0f;
+            }
         }
 
         // Igual à implementação do left diagonal, só que reajusta
         // os valores horizontais e verticais para o cálculo do ângulo.
-        float rightDiagonalValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
+        public static float rightDiagonalValue(edges edge, int boxSize, int pos_x, int pos_y, float a, float b)
         {
             int vert = 0;
             int horiz = 0;
@@ -428,15 +440,19 @@ namespace TextureSynthesys
                     }
             }
 
-            float angle = (float)Math.Atan2((double)vert, (double)horiz);
+            float angle = (float) RadianToDegree(Math.Atan2((double)vert, (double)horiz));
 
-            if (angle < a)
+            if (angle < 90f * a)
                 return 1f;
-            else if (angle >= a && angle <= b)
-                return Math.Abs((angle - b) / (a - b));
+            else if (angle >= 90f * a && angle <= 90f * b)
+                return Math.Abs((angle - 90f * b) / (90f * a - 90f * b));
             else
                 return 0f;
         }
 
+        private static double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / Math.PI);
+        }
     }
 }
