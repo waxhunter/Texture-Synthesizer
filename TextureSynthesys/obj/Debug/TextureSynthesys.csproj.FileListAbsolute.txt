@@ -7,3 +7,18 @@ C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\Te
 C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.csproj.GenerateResource.Cache
 C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.exe
 C:\Users\usuário\Documents\Projetos\C#\Computer Photography\TextureSynthesys\TextureSynthesys\obj\Debug\TextureSynthesys.pdb
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\TextureSynthesys.exe.config
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.exe
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.pdb
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\TextureSynthesys.exe
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\TextureSynthesys.pdb
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\mscorlib.dll
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\normidna.nlp
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\normnfc.nlp
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\normnfd.nlp
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\normnfkc.nlp
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\bin\Debug\normnfkd.nlp
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.TextureSynthesizer.resources
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.Properties.Resources.resources
+C:\Users\Rafael\Desktop\Texture Synthesizer 2\TextureSynthesys\obj\Debug\TextureSynthesys.csproj.GenerateResource.Cache

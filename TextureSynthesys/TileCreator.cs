@@ -36,16 +36,44 @@ namespace TextureSynthesys
                 for (int j = 0; j < boxSize / 2; j++)
                 {
                     Color pixel0 = source.GetPixel(i, j); //Na outra é (j, i), mas deveria ser assim, verificar se der bug.
-                    Color pixel1 = source.GetPixel(boxSize / 2 + i, j);
-                    Color pixel3 = source.GetPixel(i, boxSize / 2 + j);
+                    Color pixel1 = source.GetPixel(i, boxSize / 2 + j);
+                    Color pixel3 = source.GetPixel(boxSize / 2 + i, j);
 
                     // Guarda imagens com lado compatível virado para baixo.
                     bOriginalTiles[0].SetPixel(i, j, pixel0);
-                    bOriginalTiles[1].SetPixel(boxSize / 2 - i - 1, boxSize / 2 - j - 1, pixel1);
-                    bOriginalTiles[2].SetPixel(j, boxSize / 2 - i - 1, pixel0);
-                    bOriginalTiles[3].SetPixel(boxSize / 2 - j - 1, i, pixel3);
+                    bOriginalTiles[1].SetPixel(i, boxSize / 2 - j - 1, pixel1);
+                    bOriginalTiles[2].SetPixel(boxSize / 2 - j - 1, i, pixel0);
+                    // bOriginalTiles[3].SetPixel(j, boxSize / 2 - i - 1, pixel3);
+                    bOriginalTiles[3].SetPixel(boxSize / 2 - j - 1, boxSize / 2 - i - 1, pixel3);
                 }
             }
+            /*Bitmap test2 = new Bitmap(boxSize / 2, boxSize / 2);
+            for (int l = 0; l < boxSize / 2; l++)
+            {
+                for (int m = 0; m < boxSize / 2; m++)
+                {
+                    Color pixel = bOriginalTiles[2].GetPixel(l, m);
+                    test2.SetPixel(m, boxSize / 2 - l - 1, pixel);
+                }
+            }*/
+           /* Bitmap test2 = new Bitmap(boxSize / 2, boxSize / 2);
+            for (int l = 0; l < boxSize / 2; l++)
+            {
+                for (int m = 0; m < boxSize / 2; m++)
+                {
+                    Color pixel = bOriginalTiles[1].GetPixel(l, m);
+                    test2.SetPixel(boxSize / 2 - m - 1, l, pixel);
+                }
+            }
+            bOriginalTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+            for (int l = 0; l < boxSize / 2; l++)
+            {
+                for (int m = 0; m < boxSize / 2; m++)
+                {
+                    Color pixel = test2.GetPixel(l, m);
+                    bOriginalTiles[3].SetPixel(l, boxSize / 2 - m - 1, pixel);
+                }
+            }*/
 
             // Cria a matriz de 16x16 tiles conjuntos.
             Bitmap[,,] tilesMatrix = new Bitmap[16, 16, 4];
@@ -55,10 +83,18 @@ namespace TextureSynthesys
                 {
                     //Encontra a ordem das tiles neste conjunto.
                     int[] boundaryArray = new int[4];
-                    boundaryArray[0] = i / 4;
-                    boundaryArray[1] = i % 4;
-                    boundaryArray[2] = j / 4;
-                    boundaryArray[3] = j % 4;
+                    boundaryArray[0] =  j / 4;
+                    if ((boundaryArray[0] == 0 || boundaryArray[0] == 1) && (3 - ((i + 1) / 4) == 3) && i + 1 < 16)
+                    {
+                        boundaryArray[0] = 2;
+                    }
+                    boundaryArray[1] = j % 4;
+                    boundaryArray[2] = 3 - (i / 4);
+                    if (boundaryArray[1] == 2 && (3 - (i % 4) == 1 || 3 - (i % 4) == 0))
+                    {
+                        boundaryArray[1] = 0;
+                    }
+                    boundaryArray[3] = 3 - (i % 4);
 
                     // Array de 4 boundary tiles na posicão correta.
                     Bitmap[] rotatedTiles = new Bitmap[4];
@@ -73,7 +109,7 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
-                            rotatedTiles[1].SetPixel(boxSize / 2 - m - 1, l, pixel);
+                            rotatedTiles[1].SetPixel(m, boxSize / 2 - l - 1, pixel);
                         }
                     }
 
@@ -84,18 +120,27 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
-                            rotatedTiles[2].SetPixel(boxSize / 2 - l - 1, boxSize / 2 - m - 1, pixel);
+                            rotatedTiles[2].SetPixel(l, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
                     //Boundary Tile 3 é rotacionada em -90º...
-                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+                    Bitmap test = new Bitmap(boxSize / 2, boxSize / 2);
                     for (int l = 0; l < boxSize / 2; l++)
                     {
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
-                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l - 1, pixel);
+                            test.SetPixel(boxSize / 2 - m - 1, l, pixel);
+                        }
+                    }
+                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = test.GetPixel(l, m);
+                            rotatedTiles[3].SetPixel(l, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
@@ -124,11 +169,11 @@ namespace TextureSynthesys
                 for (int j = 0; j < boxSize / 2; j++)
                 {
                     Color pixel0 = source.GetPixel(i, j); //Na outra é (j, i), mas deveria ser assim, verificar se der bug.
-                    Color pixel1 = source.GetPixel(boxSize / 2 + i, j);
+                    Color pixel1 = source.GetPixel(i, boxSize / 2 + j);
 
                     // Guarda imagens com lado compatível virado para baixo.
                     bOriginalTiles[0].SetPixel(i, j, pixel0);
-                    bOriginalTiles[1].SetPixel(boxSize / 2 - i - 1, boxSize / 2 - j - 1, pixel1);
+                    bOriginalTiles[1].SetPixel(i, boxSize / 2 - j - 1, pixel1);
                 }
             }
 
@@ -140,10 +185,12 @@ namespace TextureSynthesys
                 {
                     //Encontra a ordem das tiles neste conjunto.
                     int[] boundaryArray = new int[4];
-                    boundaryArray[0] = i / 2;
-                    boundaryArray[1] = i % 2;
-                    boundaryArray[2] = j / 2;
-                    boundaryArray[3] = j % 2;
+                    boundaryArray[0] = j / 2;
+                    boundaryArray[1] = j % 2;
+                    boundaryArray[2] = 1 - (i / 2);
+                    boundaryArray[3] = 1 - (i % 2);
+
+                    Console.WriteLine(boundaryArray[0] + " " + boundaryArray[1] + " " + boundaryArray[2] + " " + boundaryArray[3]);
 
                     // Array de 4 boundary tiles na posicão correta.
                     Bitmap[] rotatedTiles = new Bitmap[4];
@@ -158,7 +205,7 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[1]].GetPixel(l, m);
-                            rotatedTiles[1].SetPixel(boxSize / 2 - m - 1, l, pixel);
+                            rotatedTiles[1].SetPixel(m, boxSize / 2 - l - 1, pixel);
                         }
                     }
 
@@ -169,18 +216,27 @@ namespace TextureSynthesys
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[2]].GetPixel(l, m);
-                            rotatedTiles[2].SetPixel(boxSize / 2 - l - 1, boxSize / 2 - m - 1, pixel);
+                            rotatedTiles[2].SetPixel(l, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
                     //Boundary Tile 3 é rotacionada em -90º...
-                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+                    Bitmap test = new Bitmap(boxSize / 2, boxSize / 2);
                     for (int l = 0; l < boxSize / 2; l++)
                     {
                         for (int m = 0; m < boxSize / 2; m++)
                         {
                             Color pixel = bOriginalTiles[boundaryArray[3]].GetPixel(l, m);
-                            rotatedTiles[3].SetPixel(m, boxSize / 2 - l - 1, pixel);
+                            test.SetPixel(boxSize / 2 - m - 1, l, pixel);
+                        }
+                    }
+                    rotatedTiles[3] = new Bitmap(boxSize / 2, boxSize / 2);
+                    for (int l = 0; l < boxSize / 2; l++)
+                    {
+                        for (int m = 0; m < boxSize / 2; m++)
+                        {
+                            Color pixel = test.GetPixel(l, m);
+                            rotatedTiles[3].SetPixel(l, boxSize / 2 - m - 1, pixel);
                         }
                     }
 
